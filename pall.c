@@ -6,7 +6,7 @@
  *
  * Return: (Always Success)
  */
-void _pall(stack_t *stack)
+void f_pall(stack_t *stack)
 {
 	if (stack == NULL)
 		return (0);

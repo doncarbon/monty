@@ -37,5 +37,6 @@ typedef struct instruction_s
 
 void _push(stack_t **stack, int element);
 void _pall(stack_t **stack);
+void interpret(FILE *file);
 
 #endif

@@ -7,7 +7,7 @@
  *
  * Return: (Always success)
  */
-void _push(stack_t **stack, int element)
+void f_push(stack_t **stack, int element)
 {
 	stack_t *temp = malloc(sizeof(stack_t));
 	stack_t *top = NULL;
