@@ -13,32 +13,38 @@ void interpret(FILE *file)
 	unsigned int line_number = 0;
 	int elem;
 	ssize_t line;
-	stack_t *stack = malloc(sizeof(stack_t));
-
-	stack->next = NULL;
-	stack->prev = NULL;
+	stack_t *stack = NULL;
 
 	while ((line = getline(&lines, &len, file)) != -1)
 	{
 		line_number += 1;
 		opcode = strtok(lines, " \t\n");
 		arg = strtok(NULL, " \t\n");
-	}
-	if (strcmp(opcode, "push") == 0)
-	{
-		if (arg != NULL)
+		
+		if (strcmp(opcode, "push") == 0)
 		{
-			elem = atoi(arg);
-			f_push(&stack, elem);
+			if (arg != NULL)
+			{
+				elem = atoi(arg);
+				f_push(&stack, elem);
+			}
+			else
+			{
+				fprintf(stderr, "L%u: usage: %s integer\n", line_number, opcode);
+				exit(EXIT_FAILURE);
+			}
 		}
-		else
+		else if (strcmp(opcode, "pall") == 0)
 		{
-			fprintf(stderr, "L%u: usage: %s integer\n", line_number, opcode);
-			exit(EXIT_FAILURE);
+			f_pall(stack);
 		}
 	}
-	else if (strcmp(opcode, "pall") == 0)
+	free(lines);
+
+	while (stack != NULL)
 	{
-		f_pall(stack);
+		stack_t *temp = stack;
+		stack = stack->prev;
+		free(temp);
 	}
 }
