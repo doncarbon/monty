@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * _push - pushes an element to the stack.
+ * f_push - pushes an element to the stack.
  * @stack: stack to be edited.
  * @element: Element to push.
  *

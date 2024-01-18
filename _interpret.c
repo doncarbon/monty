@@ -20,11 +20,16 @@ void interpret(FILE *file)
 		line_number += 1;
 		opcode = strtok(lines, " \t\n");
 		arg = strtok(NULL, " \t\n");
-		
+
 		if (strcmp(opcode, "push") == 0)
 		{
 			if (arg != NULL)
 			{
+				if (!isdigit(*arg) && *arg != '-' && *arg != '+')
+				{
+					fprintf(stderr, "L%u: usage: push integer\n", line_number);
+					exit(EXIT_FAILURE);
+				}
 				elem = atoi(arg);
 				f_push(&stack, elem);
 			}
@@ -44,6 +49,7 @@ void interpret(FILE *file)
 	while (stack != NULL)
 	{
 		stack_t *temp = stack;
+
 		stack = stack->prev;
 		free(temp);
 	}
