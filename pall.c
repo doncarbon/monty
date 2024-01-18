@@ -3,22 +3,27 @@
 /**
  * f_pall - prints all the values on the stack, starting from top of the stack.
  * @stack: stack to print.
+ * @line_number: line number
  *
  * Return: (Always Success)
  */
-void f_pall(stack_t *stack)
+void f_pall(stack_t **stack, unsigned int line_number)
 {
-	if (stack == NULL)
+	stack_t *head;
+	(void)line_number;
+
+	head = *stack;
+	if (head == NULL)
 	{
 		return;
 	}
 
-	while (stack->next)
-		stack = stack->next;
+	while (head->next)
+		head = head->next;
 
-	while (stack)
+	while (head)
 	{
-		printf("%d\n", stack->n);
-		stack = stack->prev;
+		printf("%d\n", head->n);
+		head = head->prev;
 	}
 }

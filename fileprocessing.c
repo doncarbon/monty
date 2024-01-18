@@ -32,25 +32,31 @@ char *read_line(FILE *file, size_t *len)
 void process_line(char *line, stack_t **stack, unsigned int line_number)
 {
 	char *opcode = NULL, *arg = NULL;
-	int elem;
+	instruction_t instructions[] = {
+		{"push", f_push},
+		{"pall", f_pall},
+		{"pint", f_pint},
+		{NULL, NULL}
+	};
+	int i = 0;
+	int found = 0;
 
 	opcode = strtok(line, " \t\n");
 	arg = strtok(NULL, " \t\n");
 
-	if (opcode != NULL)
+	while (instructions[i].opcode != NULL)
 	{
-		if (strcmp(opcode, "push") == 0)
+		if (strcmp(opcode, instructions[i].opcode) == 0)
 		{
 			if (arg != NULL)
 			{
-				if (!isdigit(*arg) && *arg != '-' && *arg != '+')
+				if (!is_valid_int(arg))
 				{
 					fprintf(stderr, "L%u: usage: push integer\n", line_number);
 					free(line);
 					exit(EXIT_FAILURE);
 				}
-				elem = atoi(arg);
-				f_push(stack, elem);
+				instructions[i].f(stack, atoi(arg));
 			}
 			else
 			{
@@ -58,20 +64,31 @@ void process_line(char *line, stack_t **stack, unsigned int line_number)
 				free(line);
 				exit(EXIT_FAILURE);
 			}
+			found = 1;
+			break;
 		}
-		else if (strcmp(opcode, "pall") == 0)
-			f_pall(*stack);
-		else if (strcmp(opcode, "pint") == 0)
-			f_pint(stack, line_number);
-		else
-		{
-			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-			free(line);
-			exit(EXIT_FAILURE);
-		}
+		i++;
+	}
+	if (!found)
+	{
+		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+		free(line);
+		exit(EXIT_FAILURE);
 	}
 }
+/**
+ * is_valid_int - check if valid int
+ * @str: string to check
+ *
+ * Return: int
+ */
+int is_valid_int(const char *str)
+{
+	char *endptr;
 
+	strtol(str, &endptr, 10);
+	return (*endptr == '\0');
+}
 /**
  * free_stack - free the allocated memory for the stack
  * @stack: pointer to the stack
