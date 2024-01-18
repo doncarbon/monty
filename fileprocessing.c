@@ -46,6 +46,7 @@ void process_line(char *line, stack_t **stack, unsigned int line_number)
 				if (!isdigit(*arg) && *arg != '-' && *arg != '+')
 				{
 					fprintf(stderr, "L%u: usage: push integer\n", line_number);
+					free(line);
 					exit(EXIT_FAILURE);
 				}
 				elem = atoi(arg);
@@ -54,6 +55,7 @@ void process_line(char *line, stack_t **stack, unsigned int line_number)
 			else
 			{
 				fprintf(stderr, "L%u: usage: push integer\n", line_number);
+				free(line);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -68,6 +70,7 @@ void process_line(char *line, stack_t **stack, unsigned int line_number)
 		else
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+			free(line);
 			exit(EXIT_FAILURE);
 		}
 	}
