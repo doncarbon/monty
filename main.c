@@ -26,5 +26,5 @@ int main(int argc, char *argv[])
 
 	interpret(file);
 	fclose(file);
-	return (0);
+	return (EXIT_SUCCESS);
 }

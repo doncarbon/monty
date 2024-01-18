@@ -47,5 +47,6 @@ void interpret(FILE *file);
 char *read_line(FILE *file, size_t *len);
 void process_line(char *line, stack_t **stack, unsigned int line_number);
 void free_stack(stack_t *stack);
+void f_pint(stack_t **stack, unsigned int linenum);
 
 #endif
