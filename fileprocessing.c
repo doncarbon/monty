@@ -26,6 +26,7 @@ char *read_line(FILE *file, size_t *len)
  * @line: line to process
  * @stack: pointer to the stack
  * @line_number: line number in the file
+ * @instructions: instructions.
  *
  * Return: Nothing (void)
  */

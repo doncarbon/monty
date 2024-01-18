@@ -3,6 +3,7 @@
 /**
  * interpret - file interpreter
  * @file: file to interpret
+ * @instructions: instructions of opcodes.
  *
  * Return: Nothing (void)
  */
