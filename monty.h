@@ -49,6 +49,10 @@ void process_line(char *line, stack_t **stack, unsigned int line_number,
 		instruction_t *instructions);
 void free_stack(stack_t *stack);
 void f_pint(stack_t **stack, unsigned int linenum);
+void f_pop(stack_t **stack, unsigned int line_number);
+void f_swap(stack_t **stack, unsigned int line_number);
+void f_add(stack_t **stack, unsigned int line_number);
+void f_nop(stack_t **stack, unsigned int line_number);
 int is_valid_int(const char *str);
 
 #endif

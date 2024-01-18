@@ -38,7 +38,7 @@ void process_line(char *line, stack_t **stack, unsigned int line_number,
 
 	if (opcode != NULL)
 	{
-		while (instructions[i].opcode)
+		while (instructions[i].opcode && opcode)
 		{
 			if (strcmp(instructions[i].opcode, opcode) == 0)
 			{
