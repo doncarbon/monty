@@ -9,21 +9,19 @@
  */
 void f_pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *head;
 	(void)line_number;
 
-	head = *stack;
-	if (head == NULL)
+	if (*stack == NULL)
 	{
 		return;
 	}
 
-	while (head->next)
-		head = head->next;
+	while ((*stack)->next)
+		*stack = (*stack)->next;
 
-	while (head)
+	while (*stack)
 	{
-		printf("%d\n", head->n);
-		head = head->prev;
+		printf("%d\n", (*stack)->n);
+		*stack = (*stack)->prev;
 	}
 }

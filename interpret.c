@@ -6,7 +6,7 @@
  *
  * Return: Nothing (void)
  */
-void interpret(FILE *file)
+void interpret(FILE *file, instruction_t *instructions)
 {
 	char *lines = NULL;
 	size_t len = 0;
@@ -16,7 +16,7 @@ void interpret(FILE *file)
 	while ((lines = read_line(file, &len)) != NULL)
 	{
 		line_number += 1;
-		process_line(lines, &stack, line_number);
+		process_line(lines, &stack, line_number, instructions);
 		free(lines);
 	}
 

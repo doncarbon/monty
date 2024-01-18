@@ -43,9 +43,10 @@ typedef struct instruction_s
 
 void f_push(stack_t **stack, unsigned int line_number);
 void f_pall(stack_t **stack, unsigned int line_number);
-void interpret(FILE *file);
+void interpret(FILE *file, instruction_t *instructions);
 char *read_line(FILE *file, size_t *len);
-void process_line(char *line, stack_t **stack, unsigned int line_number);
+void process_line(char *line, stack_t **stack, unsigned int line_number,
+		instruction_t *instructions);
 void free_stack(stack_t *stack);
 void f_pint(stack_t **stack, unsigned int linenum);
 int is_valid_int(const char *str);
