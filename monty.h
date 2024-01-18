@@ -44,5 +44,8 @@ typedef struct instruction_s
 void f_push(stack_t **stack, int element);
 void f_pall(stack_t *stack);
 void interpret(FILE *file);
+char *read_line(FILE *file, size_t *len);
+void process_line(char *line, stack_t **stack, unsigned int line_number);
+void free_stack(stack_t *stack);
 
 #endif
