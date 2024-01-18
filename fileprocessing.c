@@ -34,8 +34,8 @@ void process_line(char *line, stack_t **stack, unsigned int line_number)
 	char *opcode = NULL, *arg = NULL;
 	int elem;
 
-	arg = strtok(NULL, " \t\n");
 	opcode = strtok(line, " \t\n");
+	arg = strtok(NULL, " \t\n");
 
 	if (opcode != NULL)
 	{
@@ -68,8 +68,6 @@ void process_line(char *line, stack_t **stack, unsigned int line_number)
 			exit(EXIT_FAILURE);
 		}
 	}
-	else
-		free(line);
 }
 
 /**
@@ -86,5 +84,6 @@ void free_stack(stack_t *stack)
 
 		stack = stack->prev;
 		free(temp);
+		temp->prev = NULL;
 	}
 }
