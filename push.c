@@ -3,11 +3,11 @@
 /**
  * f_push - pushes an element to the stack.
  * @stack: stack to be edited.
- * @line_number: Element to push.
+ * @element: Element to push.
  *
  * Return: (Always success)
  */
-void f_push(stack_t **stack, unsigned int line_number)
+void f_push(stack_t **stack, int element)
 {
 	stack_t *temp = malloc(sizeof(stack_t));
 	stack_t *top = NULL;
@@ -19,7 +19,7 @@ void f_push(stack_t **stack, unsigned int line_number)
 	}
 
 	temp->prev = NULL;
-	temp->n = line_number;
+	temp->n = element;
 	temp->next = NULL;
 	top = *stack;
 

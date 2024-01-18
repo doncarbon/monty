@@ -10,12 +10,6 @@
 int main(int argc, char *argv[])
 {
 	FILE *file;
-	instruction_t instructions[] = {
-		{"push", f_push},
-		{"pall", f_pall},
-		{"pint", f_pint},
-		{NULL, NULL}
-	};
 
 	if (argc != 2)
 	{
@@ -30,7 +24,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	interpret(file, instructions);
+	interpret(file);
 	fclose(file);
 	return (EXIT_SUCCESS);
 }

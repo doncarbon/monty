@@ -26,48 +26,51 @@ char *read_line(FILE *file, size_t *len)
  * @line: line to process
  * @stack: pointer to the stack
  * @line_number: line number in the file
- * @instructions: instructions.
  *
  * Return: Nothing (void)
  */
-void process_line(char *line, stack_t **stack, unsigned int line_number,
-		instruction_t *instructions)
+void process_line(char *line, stack_t **stack, unsigned int line_number)
 {
-	char *opcode = strtok(line, " \t\n");
-	int i = 0;
+	char *opcode = NULL, *arg = NULL;
+	int elem;
+
+	opcode = strtok(line, " \t\n");
+	arg = strtok(NULL, " \t\n");
 
 	if (opcode != NULL)
 	{
-		while (instructions[i].opcode && opcode)
+		if (strcmp(opcode, "push") == 0)
 		{
-			if (strcmp(instructions[i].opcode, opcode) == 0)
+			if (arg != NULL)
 			{
-				instructions[i].f(stack, line_number);
-				return;
+				if (!isdigit(*arg) && *arg != '-' && *arg != '+')
+				{
+					fprintf(stderr, "L%u: usage: push integer\n", line_number);
+					exit(EXIT_FAILURE);
+				}
+				elem = atoi(arg);
+				f_push(stack, elem);
 			}
-			i++;
+			else
+			{
+				fprintf(stderr, "L%u: usage: push integer\n", line_number);
+				exit(EXIT_FAILURE);
+			}
 		}
-
-		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-		free(line);
-		exit(EXIT_FAILURE);
+		else if (strcmp(opcode, "pall") == 0)
+			f_pall(*stack);
+		else if (strcmp(opcode, "pint") == 0)
+			f_pint(stack, line_number);
+		else if (strcmp(opcode, "pop") == 0)
+			f_pop(stack, line_number);
+		else if (strcmp(opcode, "swap") == 0)
+			f_swap(stack, line_number);
+		else
+		{
+			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+			exit(EXIT_FAILURE);
+		}
 	}
-	else
-		free(line);
-}
-
-/**
- * is_valid_int - check if valid int
- * @str: string to check
- *
- * Return: int
- */
-int is_valid_int(const char *str)
-{
-	char *endptr;
-
-	strtol(str, &endptr, 10);
-	return (*endptr == '\0');
 }
 
 /**

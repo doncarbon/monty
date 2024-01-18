@@ -3,11 +3,10 @@
 /**
  * interpret - file interpreter
  * @file: file to interpret
- * @instructions: instructions of opcodes.
  *
  * Return: Nothing (void)
  */
-void interpret(FILE *file, instruction_t *instructions)
+void interpret(FILE *file)
 {
 	char *lines = NULL;
 	size_t len = 0;
@@ -17,9 +16,9 @@ void interpret(FILE *file, instruction_t *instructions)
 	while ((lines = read_line(file, &len)) != NULL)
 	{
 		line_number += 1;
-		process_line(lines, &stack, line_number, instructions);
-		free(lines);
+		process_line(lines, &stack, line_number);
 	}
 
+	free(lines);
 	free_stack(stack);
 }
