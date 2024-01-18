@@ -13,7 +13,10 @@ void f_push(stack_t **stack, int element)
 	stack_t *top = NULL;
 
 	if (temp == NULL)
-		return (0);
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 
 	temp->prev = NULL;
 	temp->n = element;

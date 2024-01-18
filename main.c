@@ -7,7 +7,7 @@
  *
  * Return: (Always success)
  */
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	FILE *file;
 
@@ -26,5 +26,5 @@ void main(int argc, char *argv[])
 
 	interpret(file);
 	fclose(file);
-	return (0);
+	return 0;
 }
