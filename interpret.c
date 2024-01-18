@@ -17,8 +17,7 @@ void interpret(FILE *file)
 	{
 		line_number += 1;
 		process_line(lines, &stack, line_number);
+		free(lines);
 	}
-
-	free(lines);
 	free_stack(stack);
 }
