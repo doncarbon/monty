@@ -10,7 +10,6 @@
 void f_push(stack_t **stack, int element)
 {
 	stack_t *temp = malloc(sizeof(stack_t));
-	stack_t *top = NULL;
 
 	if (temp == NULL)
 	{
@@ -20,16 +19,10 @@ void f_push(stack_t **stack, int element)
 
 	temp->prev = NULL;
 	temp->n = element;
-	temp->next = NULL;
-	top = *stack;
+	temp->next = *stack;
 
-	if (top != NULL)
-		while (top->next)
-			top = top->next;
-
-	temp->prev = top;
-	if (top != NULL)
-		top->next = temp;
+	if (*stack != NULL)
+		(*stack)->prev = temp;
 
 	*stack = temp;
 }

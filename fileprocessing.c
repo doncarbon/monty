@@ -88,8 +88,7 @@ void free_stack(stack_t *stack)
 	{
 		stack_t *temp = stack;
 
-		stack = stack->prev;
+		stack = stack->next;
 		free(temp);
-		temp->prev = NULL;
 	}
 }
