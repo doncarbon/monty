@@ -10,8 +10,7 @@ void f_pall(stack_t *stack)
 {
 	if (stack == NULL)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		return;
 	}
 
 	while (stack->next)
