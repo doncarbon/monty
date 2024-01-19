@@ -70,6 +70,8 @@ void process_line(char *line, stack_t **stack, unsigned int line_number)
 		f_swap(stack, line_number);
 	else if (strcmp(opcode, "add") == 0)
 		f_add(stack, line_number);
+	else if (strcmp(opcode, "nop") == 0)
+		f_nop(stack, line_number);
 	else
 	{
 		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
