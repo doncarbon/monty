@@ -2,6 +2,8 @@
 /**
  * f_sub - subtracts the top element of the stack
  * from the second top element of the stack.
+ * @stack: stack head
+ * @line_number: line number
  *
  * Return: Nothing (void)
  */
