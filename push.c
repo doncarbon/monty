@@ -17,12 +17,16 @@ void f_push(stack_t **stack, int element)
 		exit(EXIT_FAILURE);
 	}
 
-	temp->prev = NULL;
 	temp->n = element;
-	temp->next = *stack;
+	temp->prev = NULL;
 
 	if (*stack != NULL)
+	{
+		temp->next = *stack;
 		(*stack)->prev = temp;
+	}
+	else
+		temp->next = NULL;
 
 	*stack = temp;
 }
