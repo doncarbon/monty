@@ -77,7 +77,7 @@ void process_line(char *line, stack_t **stack, unsigned int line_number)
 	else if (strcmp(opcode, "div") == 0)
 		f_div(stack, line_number);
 	else if (strcmp(opcode, "mul") == 0)
-		f_mul(stack, line_number)
+		f_mul(stack, line_number);
 	else
 	{
 		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
