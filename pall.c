@@ -8,18 +8,12 @@
  */
 void f_pall(stack_t *stack)
 {
-	if (stack == NULL)
-	{
-		return;
-	}
+	stack_t *temp = stack;
 
-	while (stack->next)
-		stack = stack->next;
-
-	while (stack)
+	while (temp != NULL)
 	{
-		printf("%d\n", stack->n);
-		stack = stack->prev;
+		printf("%d\n", temp->n);
+		temp = temp->next;
 	}
 }
 

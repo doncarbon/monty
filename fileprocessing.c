@@ -20,6 +20,20 @@ char *read_line(FILE *file, size_t *len)
 
 	return (buffer);
 }
+/**
+ * handle_error - handle error messages.
+ * @message: error message
+ * @line_number: line number
+ * @line: line where the error is
+ *
+ * Return: void.
+ */
+void handle_error(const char *message, unsigned int line_number, char *line)
+{
+	fprintf(stderr, "L%u: %s\n", line_number, message);
+	free(line);
+	exit(EXIT_FAILURE);
+}
 
 /**
  * process_line - process a single line of the Monty bytecode file
@@ -32,47 +46,35 @@ char *read_line(FILE *file, size_t *len)
 void process_line(char *line, stack_t **stack, unsigned int line_number)
 {
 	char *opcode = NULL, *arg = NULL;
-	int elem;
 
 	opcode = strtok(line, " \t\n");
 	arg = strtok(NULL, " \t\n");
 
-	if (opcode != NULL)
+	if (!opcode)
+		return;
+
+	if (strcmp(opcode, "push") == 0)
 	{
-		if (strcmp(opcode, "push") == 0)
-		{
-			if (arg != NULL)
-			{
-				if (!isdigit(*arg) && *arg != '-' && *arg != '+')
-				{
-					fprintf(stderr, "L%u: usage: push integer\n", line_number);
-					free(line);
-					exit(EXIT_FAILURE);
-				}
-				elem = atoi(arg);
-				f_push(stack, elem);
-			}
-			else
-			{
-				fprintf(stderr, "L%u: usage: push integer\n", line_number);
-				free(line);
-				exit(EXIT_FAILURE);
-			}
-		}
-		else if (strcmp(opcode, "pall") == 0)
-			f_pall(*stack);
-		else if (strcmp(opcode, "pint") == 0)
-			f_pint(stack, line_number);
-		else if (strcmp(opcode, "pop") == 0)
-			f_pop(stack, line_number);
-		else if (strcmp(opcode, "swap") == 0)
-			f_swap(stack, line_number);
-		else
-		{
-			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-			free(line);
-			exit(EXIT_FAILURE);
-		}
+		if (!arg || (!isdigit(*arg) && *arg != '-' && *arg != '+'))
+			handle_error("usage: push integer", line_number, line);
+
+		f_push(stack, atoi(arg));
+	}
+	else if (strcmp(opcode, "pall") == 0)
+		f_pall(*stack);
+	else if (strcmp(opcode, "pint") == 0)
+		f_pint(stack, line_number);
+	else if (strcmp(opcode, "pop") == 0)
+		f_pop(stack, line_number);
+	else if (strcmp(opcode, "swap") == 0)
+		f_swap(stack, line_number);
+	else if (strcmp(opcode, "add") == 0)
+		f_add(stack, line_number);
+	else
+	{
+		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+		free(line);
+		exit(EXIT_FAILURE);
 	}
 }
 
