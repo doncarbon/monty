@@ -49,15 +49,12 @@ void process_line(char *line, stack_t **stack, unsigned int line_number)
 
 	opcode = strtok(line, " \t\n");
 	arg = strtok(NULL, " \t\n");
-
 	if (!opcode)
 		return;
-
 	if (strcmp(opcode, "push") == 0)
 	{
 		if (!arg || (!isdigit(*arg) && *arg != '-' && *arg != '+'))
 			handle_error("usage: push integer", line_number, line);
-
 		f_push(stack, atoi(arg));
 	}
 	else if (strcmp(opcode, "pall") == 0)
@@ -78,6 +75,8 @@ void process_line(char *line, stack_t **stack, unsigned int line_number)
 		f_div(stack, line_number);
 	else if (strcmp(opcode, "mul") == 0)
 		f_mul(stack, line_number);
+	else if (strcmp(opcode, "mod") == 0)
+		f_mod(stack, line_number);
 	else
 	{
 		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
